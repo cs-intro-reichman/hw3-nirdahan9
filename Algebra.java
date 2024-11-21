@@ -130,17 +130,27 @@ public class Algebra {
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
 		int times = 0;
-		while(x1>=x2) {
-			x1 = minus(x1, x2);
-			times ++;
-		}
-		if ((x1 < 0 && x2 > 0) || (x2 < 0 && x1 > 0)) {
+		if((x1 < 0 && x2 < 0) || (x1 > 0 && x2 > 0)) {
+			x1 = abs(x1);
+			x2 = abs(x2);
+			while(x1>=x2) {
+				x1 = minus(x1, x2);
+				times ++;
+			}
+			return times;
+		} else {
+			if(x1 < 0 ) x1 = abs(x1);
+			if(x2 < 0 ) x1 = abs(x1);
+			while(x1>=x2) {
+				x1 = minus(x1, x2);
+				times ++;
+			}
 			for( int i = 0 ; i < times ; i ++) {
 				times --;
 				times --;
 			}
+			return times;
 		}
-		return times;
 	}
 
 	// Returns x1 % x2

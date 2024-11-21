@@ -31,6 +31,8 @@ public class Anagram {
 		// Replace the following statement with your code
 		str1 = preProcess(str1);
 		str2 = preProcess(str2);
+		while(str1.indexOf(' ') != -1) str1 = removeCharFromString(str1, ' ');
+		while(str2.indexOf(' ') != -1) str2 = removeCharFromString(str2, ' ');
 		if(str1.length() != str2.length()) return false;
 		while (str1.length() != 0 && str2.length() != 0) {
 			int rnd = (int) (Math.random()*str1.length());
@@ -46,8 +48,7 @@ public class Anagram {
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		while(str.charAt(str.length()-1)==' ') str = removeCharFromString(str, str.length());
-		String newStr = "" , check = "abcdefghijklmnopqrstuvwxyz";
+		String newStr = "" , check = "abcdefghijklmnopqrstuvwxyz ";
 		str = str.toLowerCase();
 		for(int i = 0 ; i < str.length() ; i ++) {
 			if(check.indexOf(str.charAt(i)) != -1) {
