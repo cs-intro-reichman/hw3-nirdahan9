@@ -46,7 +46,7 @@ public class LoanCalc {
 		double payment = loan/n;
 		double endBal = endBalance(loan, rate, n, payment);
 		while(endBal>epsilon){
-			payment += 0.01;
+			payment += epsilon;
 			endBal = endBalance(loan, rate, n, payment);
 			iterationCounter++;
 		}
@@ -62,6 +62,7 @@ public class LoanCalc {
         iterationCounter = 0;
 		double low = 0 , high = loan , index = 0.5*(high + low);
 		double endBal = endBalance(loan, rate, n, index);
+		iterationCounter++;
 		while(endBal>epsilon || endBal<0) {
 			if(endBal<0) {
 				high = index;
