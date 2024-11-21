@@ -20,7 +20,7 @@ public class Algebra {
    		System.out.println(mod(120,6));  // 120 % 6 = 0  
    		System.out.println(sqrt(36)); 	   // 6
 		System.out.println(sqrt(263169));    // 513
-   		System.out.println(sqrt(76123));     // 275
+   		System.out.println(sqrt(76123));     // 275 
 	}  
 
 	// Returns x1 + x2
@@ -67,15 +67,39 @@ public class Algebra {
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
+		if(x1 == 0 || x2 == 0) return 0;
 		int result = 0 ;
-		if (x1 == 0 || x2 == 0) return 0;
-		for(int i = 0 ; i < x2 ; i ++) {
-			result = plus(result, x1);
-		}
-		if ((x1 < 0 && x2 > 0) || (x2 < 0 && x1 > 0)) {
-			for( int i = 0 ; i < result ; i ++) {
-				result --;
-				result --;
+		if(x1 < 0 && x2 < 0) {
+			x1 = abs(x1);
+			x2 = abs(x2);
+			for(int i = 0 ; i < x2 ; i ++) {
+				result = plus(result, x1);
+			}
+			return result;
+		} else if(x1 < 0 && x2 > 0) {
+			x1 = abs(x1);
+
+			for(int i = 0 ; i < x2 ; i ++) {
+				result = plus(result, x1);
+			}
+			int resultConverted = result;
+			for(int i = 0 ; i < result ; i ++) {
+				resultConverted = minus(resultConverted, 2);
+			}
+			return resultConverted;
+		} else if (x1 > 0 && x2 < 0) {
+			x2 = abs(x2);
+			for(int i = 0 ; i < x2 ; i ++) {
+				result = plus(result, x1);
+			}
+			int resultConverted = result;
+			for(int i = 0 ; i < result ; i ++) {
+				resultConverted = minus(resultConverted, 2);
+			}
+			return resultConverted;
+		} else {
+			for(int i = 0 ; i < x2 ; i ++) {
+				result = plus(result, x1);
 			}
 		}
 		return result;
@@ -85,15 +109,20 @@ public class Algebra {
 	public static int pow(int x, int n) {
 		int result = 1;
 		if(x==0) return 0;
-		if(n==1) return 1;
-		for(int i = 0 ; i < n ; i ++) {
-			result = times(result, x);
+		if(n==1) return x;
+		if(n > 0) {
+			for(int i = 0 ; i < n ; i ++) {
+				result = times(result, x);
+			}
+		}
+		if(n > 0) {
+			n = times(n, -1);
+			for(int i = 0 ; i < n ; i ++) {
+				result = div(result, x);
+			}
 		}
 		if(x<0 && mod(n, 2) == 1) {
-			for( int i = 0 ; i < result ; i ++) {
-				result --;
-				result --;
-			}
+			x = times(x, -1);
 		}
 		return result;
 	}
@@ -125,7 +154,19 @@ public class Algebra {
 	public static int sqrt(int x) {
 		int result = 0;
 		while(times(result, result) < x) result ++ ;
-		if(times(result , result) != x) result --;
+		if(times(result , result) > x) result --;
 		return result;
-	}	  	  
+	}
+	
+	public static int abs(int x) {
+		if(x == 0 ) return 0;
+		if(x > 0) return x;
+		else {
+			int result = x;
+			for(int i = 0 ; i > x ; i --) {
+				result = plus(result, 2);
+			}
+			return result;
+		}
+	}
 }
