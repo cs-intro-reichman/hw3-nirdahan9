@@ -9,7 +9,9 @@ public class LoanCalc {
     // interest rate (double, as a percentage), and number of payments (int).  
 	public static void main(String[] args) {		
 		// Gets the loan data
-		System.out.println(endBalance(100000, 0.05, 4, 10000));
+		System.out.println(bisectionSolver(120000, 3.5, 60, epsilon));
+		System.out.println("Iterations - "+ iterationCounter);
+		/*
 		double loan = Double.parseDouble(args[0]);
 		double rate = Double.parseDouble(args[1]);
 		int n = Integer.parseInt(args[2]);
@@ -24,6 +26,7 @@ public class LoanCalc {
 		System.out.print("\nPeriodical payment, using bi-section search: ");
 		System.out.println((int) bisectionSolver(loan, rate, n, epsilon));
 		System.out.println("number of iterations: " + iterationCounter); 
+		*/
 
 	}
 
@@ -60,15 +63,14 @@ public class LoanCalc {
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
         iterationCounter = 0;
-		double low = 0 , high = loan , index = 0.5*(high + low);
-		double endBal = endBalance(loan, rate, n, index);
-		iterationCounter++;
-		while(endBal>epsilon || endBal<0) {
-			if(endBal<0) {
-				high = index;
+		double low = loan/n , high = loan , index = 0.5*(high + low) ,
+		endBal = endBalance(loan, rate, n, index);
+		while(high-low > epsilon) {
+			if(endBalance(loan, rate, n, index)*endBalance(loan, rate, n, low)>0) {
+				low = index;
 				index = 0.5*(high + low);
 			} else {
-				low = index;
+				high = index;
 				index = 0.5*(high + low);
 			}
 			endBal = endBalance(loan, rate, n, index);
