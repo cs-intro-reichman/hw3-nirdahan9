@@ -9,9 +9,6 @@ public class LoanCalc {
     // interest rate (double, as a percentage), and number of payments (int).  
 	public static void main(String[] args) {		
 		// Gets the loan data
-		System.out.println(bisectionSolver(120000, 3.5, 60, epsilon));
-		System.out.println("Iterations - "+ iterationCounter);
-		/*
 		double loan = Double.parseDouble(args[0]);
 		double rate = Double.parseDouble(args[1]);
 		int n = Integer.parseInt(args[2]);
