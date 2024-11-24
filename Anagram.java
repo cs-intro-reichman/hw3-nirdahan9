@@ -49,7 +49,7 @@ public class Anagram {
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
 		String newStr = "" , check = "abcdefghijklmnopqrstuvwxyz ";
-		str = str.toLowerCase();
+		str = lowerCase(str);
 		for(int i = 0 ; i < str.length() ; i ++) {
 			if(check.indexOf(str.charAt(i)) != -1) {
 				newStr += str.charAt(i);
@@ -72,7 +72,7 @@ public class Anagram {
 	}
 
 	public static String removeCharFromString(String str , int index) {
-		// Removes a char from a string by an index
+		// Removes a char from a string by an index, similar to sub-String.
 		String newStr = "";
 		for(int i = 0 ; i < index ; i ++) {
 			newStr += str.charAt(i);
@@ -84,7 +84,7 @@ public class Anagram {
 	}
 
 	public static String removeCharFromString(String str , char ch) {
-		// Removes a char from a string by the char itself
+		// Removes a char from a string by the char itself, similar to sub-String.
 		int index = str.indexOf(ch);
 		String newStr = "";
 		for(int i = 0 ; i < index ; i ++) {
@@ -94,6 +94,19 @@ public class Anagram {
 			newStr += str.charAt(i);
 		}
 		return newStr;
+	}
+
+	public static String lowerCase(String str) {
+		// Conveting the upper-case Chars to lower-case without using a method we didn't learn
+		String newString = "";
+		for(int i = 0 ; i < str.length() ; i ++) {
+			if("ABCEDFGHIJKLMNOPQRSTUVWXYZ".indexOf(str.charAt(i))!=-1) {
+				newString += (char) (str.charAt(i) + 32);
+			} else {
+				newString+=str.charAt(i);
+			}
+		}
+		return newString;
 	}
 
 }

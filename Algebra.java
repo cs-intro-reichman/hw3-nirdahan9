@@ -170,6 +170,7 @@ public class Algebra {
 	}
 	
 	public static int abs(int x) {
+		//Converting an integer to its absolute value without using methods we're not allowed to use.
 		if(x == 0 ) return 0;
 		if(x > 0) return x;
 		else {
