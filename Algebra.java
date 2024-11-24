@@ -26,17 +26,13 @@ public class Algebra {
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
 		if(x2<0) {
-			int x2Converted = x2; 
-			for(int i = 0 ; i > x2 ; i --) {
-				x2Converted ++;
-				x2Converted ++;
-			}
+			int x2Converted = 0; 
+			for(int i = 0 ; i > x2 ; i --) x2Converted++;
 			x2 = x2Converted;
 			for(int i = 0 ; i < x2 ; i ++) {
 				x1 --;
 			}
-		}
-		else {
+		} else {
 			for(int i = 0 ; i < x2 ; i ++) {
 				x1 ++;
 			}
@@ -68,17 +64,21 @@ public class Algebra {
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
 		if(x1 == 0 || x2 == 0) return 0;
-		int result = 0 ;
+		int result = 0;
 		if(x1 < 0 && x2 < 0) {
-			x1 = abs(x1);
-			x2 = abs(x2);
+			int x1Converted = 0 , x2Converted = 0;
+			for(int i = 0 ; i > x1 ; i --) x1Converted ++;
+			for(int i = 0 ; i > x2 ; i --) x2Converted ++;
+			x1 = x1Converted;
+			x2 = x2Converted;
 			for(int i = 0 ; i < x2 ; i ++) {
 				result = plus(result, x1);
 			}
 			return result;
 		} else if(x1 < 0 && x2 > 0) {
-			x1 = abs(x1);
-
+			int x1Converted = 0;
+			for(int i = 0 ; i > x1 ; i --) x1Converted ++;
+			x1 = x1Converted;
 			for(int i = 0 ; i < x2 ; i ++) {
 				result = plus(result, x1);
 			}
@@ -88,14 +88,14 @@ public class Algebra {
 			}
 			return resultConverted;
 		} else if (x1 > 0 && x2 < 0) {
-			x2 = abs(x2);
+			int x2Converted = 0;
+			for(int i = 0 ; i > x2 ; i --) x2Converted ++;
+			x2 = x2Converted;
 			for(int i = 0 ; i < x2 ; i ++) {
 				result = plus(result, x1);
 			}
-			int resultConverted = result;
-			for(int i = 0 ; i < result ; i ++) {
-				resultConverted = minus(resultConverted, 2);
-			}
+			int resultConverted = 0;
+			for(int i = 0 ; i < result ; i ++) resultConverted--; 
 			return resultConverted;
 		} else {
 			for(int i = 0 ; i < x2 ; i ++) {
@@ -131,16 +131,29 @@ public class Algebra {
 	public static int div(int x1, int x2) {
 		int times = 0;
 		if((x1 < 0 && x2 < 0) || (x1 > 0 && x2 > 0)) {
-			x1 = abs(x1);
-			x2 = abs(x2);
+			if(x1 < 0 && x2 < 0) {
+				int x1Converted = 0 , x2Converted = 0;
+				for(int i = 0 ; i > x1 ; i --) x1Converted ++;
+				for(int i = 0 ; i > x2 ; i --) x2Converted ++;
+				x1 = x1Converted;
+				x2 = x2Converted;
+			}
 			while(x1>=x2) {
 				x1 = minus(x1, x2);
 				times ++;
 			}
 			return times;
 		} else {
-			if(x1 < 0 ) x1 = abs(x1);
-			if(x2 < 0 ) x1 = abs(x1);
+			if(x1 < 0 ) {
+				int x1Converted = 0;
+				for(int i = 0 ; i > x1 ; i --) x1Converted ++;
+				x1 = x1Converted;
+			}
+			if(x2 < 0 ) {
+				int x2Converted = 0;
+				for(int i = 0 ; i > x2 ; i ++) x2Converted ++;
+				x2 = x2Converted;
+			}
 			while(x1>=x2) {
 				x1 = minus(x1, x2);
 				times ++;
@@ -169,16 +182,4 @@ public class Algebra {
 		return result;
 	}
 	
-	public static int abs(int x) {
-		//Converting an integer to its absolute value without using methods we're not allowed to use.
-		if(x == 0 ) return 0;
-		if(x > 0) return x;
-		else {
-			int result = x;
-			for(int i = 0 ; i > x ; i --) {
-				result = plus(result, 2);
-			}
-			return result;
-		}
-	}
 }
